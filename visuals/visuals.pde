@@ -21,7 +21,7 @@ boolean terminated;
 
 void setup()
 {
-  size(200, 200);
+  fullScreen();
   String portName = Serial.list()[0];
   myPort = new Serial(this, portName, 115200);
   time = millis();
@@ -37,7 +37,8 @@ void setup()
 
 void draw()
 {
-  background(255);
+  int[] fillings = getColors();
+  background(255, fillings[0], fillings[1]);
   
   // Get serial values
   if (myPort.available() > 0) {
@@ -53,8 +54,7 @@ void draw()
   
   // Calls the state machine on the button clicks
   machine(values[2], values[3]);
-  updateTime(Integer.parseInt(values[0]));
-  size(200, 200);
+  updateTime(Integer.parseInt(values[1]));
   
   // Deducts a second every second
   if (millis() - time >= 1000) {
@@ -62,10 +62,21 @@ void draw()
     time = millis();
   }
   fill(0);
-  text(timing, 20, 20);
+  textSize(128);
+  textAlign(CENTER);
+  text(timing, displayWidth / 2, displayHeight / 2);
 }
 
+// Using the time left gets the color values to set the background
+int[] getColors() {
+  int colorTime = timing % 30;
+  int greenValue = int(map(colorTime, 0, 29, 255, 188));
+  int blueValue = int(map(colorTime, 0, 29, 255, 0));
+  int[] colorTimes = {greenValue, blueValue};
+  return colorTimes;
+}
 
+// This function is called when the game is over
 void endingDisplay(String a) {
   // If the reset switch is used
   if (!a.equals(again)) {
@@ -79,15 +90,27 @@ void endingDisplay(String a) {
   }
   else if (start) {
     background(0, 0, 255);
+    textSize(128);
+    textAlign(CENTER);
+    text("Both players win!", displayWidth / 2, displayHeight / 2);
   }
   else if (lose) {
     background(255, 0, 0);
+    textSize(128);
+    textAlign(CENTER);
+    text("Both players lose!", displayWidth / 2, displayHeight / 2);
   }
   else if (player1) {
     background(255, 255, 0);
+    textSize(128);
+    textAlign(CENTER);
+    text("Yellow button player wins!", displayWidth / 2, displayHeight / 2);
   }
   else if (player2) {
     background(0, 255, 0);
+    textSize(128);
+    textAlign(CENTER);
+    text("Green button player wins!", displayWidth / 2, displayHeight / 2);
   }
 }
 
