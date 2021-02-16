@@ -13,7 +13,11 @@ Each button is connected with two wires. One wire goes to a ESP32 GPIO pin (it d
 The switch is also connected by two wires. One goes to a GPIO pin, and another goes to ground. Once again, like the buttons, I connect the switch to wires which connect to the breadboard. This helps to extend the reach of where I can place my switch which is useful for the enclosure. 
 
 Then, I connect the ESP32 to the Raspberry Pi with a USB. Do not use a regular charging USB cable to connect them, that will not work. Below are some images of the wiring.
-<img src="./images/IMG_3116.jpg" width="100" height="100">
+
+<br>
+<img src="./images/IMG_3116.jpg" width="300" height="300">
+<img src="./images/IMG_3117.jpg" width="300" height="300">
+<br>
 
 ## Arduino Software
 
